@@ -1,0 +1,178 @@
+You are a senior full-stack engineer.
+Build a complete Instagram-style Mini Clone using Python (Flask) for backend, MySQL for database, and React.js for frontend.
+
+BACKEND REQUIREMENTS (Flask + MySQL + fastapi)
+1. Project Structure
+
+Use Flask with Blueprint-based modular architecture
+
+Separate folders for:
+
+auth
+
+users
+
+posts
+
+likes
+
+comments
+
+followers
+
+Use SQLAlchemy ORM with MySQL
+
+Environment variables for secrets
+
+2. Authentication
+
+User Signup and Login
+
+Hash passwords securely
+
+Issue JWT token on login
+
+Create auth middleware to protect routes
+
+3. Database Models
+
+Design these tables:
+
+User (id, username, email, password_hash, created_at)
+
+Post (id, user_id, image_url, caption, created_at)
+
+Followers (follower_id, following_id)
+
+Like (user_id, post_id)
+
+Comment (id, user_id, post_id, content, created_at)
+
+Enforce:
+
+Unique likes per user per post
+
+No duplicate follow relationships
+
+4. Features & APIs
+Follow System
+
+Follow a user
+
+Unfollow a user
+
+Get followers and following count
+
+Posts
+
+Create a post (image URL + caption)
+
+Fetch posts by user
+
+Likes
+
+Like a post
+
+Unlike a post
+
+Comments
+
+Add comment to post
+
+Fetch comments with username
+
+Feed
+
+Fetch feed for logged-in user
+
+Feed shows posts from users the logged-in user follows
+
+Sort by newest first
+
+5. API Behavior
+
+Return JSON responses
+
+Proper HTTP status codes
+
+Input validation and error handling
+
+Pagination support for feed (basic)
+
+FRONTEND REQUIREMENTS (React.js)
+1. Project Setup
+
+Use React with functional components
+
+Use hooks (useState, useEffect)
+
+Use Axios for API calls
+
+Token stored securely (localStorage)
+
+2. Screens
+Login & Signup
+
+Authentication forms
+
+Store token on login
+
+Redirect to feed
+
+Home Feed
+
+Display list of posts
+
+Show image, caption, likes count
+
+Like / Unlike button
+
+View comments
+
+Create Post
+
+Form with image URL and caption
+
+Submit post and redirect to feed
+
+Profile Page
+
+User posts
+
+Followers / Following count
+
+Follow / Unfollow button
+
+Post Detail Page
+
+Full post view
+
+Like / Unlike
+
+Add and view comments
+
+3. Frontend Behavior
+
+Update UI dynamically without page refresh
+
+Handle loading and error states
+
+Basic responsive styling
+
+FINAL DELIVERABLE
+
+Provide backend and frontend in separate folders
+
+Include instructions to:
+
+Run MySQL
+
+Configure environment variables
+
+Start Flask backend
+
+Start React frontend
+
+Ensure the app runs end-to-end successfully
+
+Build clean, readable, production-style code with comments where necessary.
