@@ -1,42 +1,373 @@
-#root {
-  max-width: 1280px;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #fafafa;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 600px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 20px;
+  padding-top: 80px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 18px;
+  color: #666;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: white;
+  border-bottom: 1px solid #dbdbdb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 100;
+}
+
+.navbar h1 {
+  font-size: 24px;
+  font-weight: 400;
+  font-family: 'Lobster', cursive;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #262626;
+  font-size: 14px;
+}
+
+.navbar-links button {
+  background: none;
+  border: none;
+  color: #0095f6;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.auth-container {
+  max-width: 350px;
+  margin: 100px auto;
+  padding: 40px;
+  background: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+}
+
+.auth-container h2 {
   text-align: center;
+  margin-bottom: 20px;
+  font-weight: 400;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.auth-form input {
+  padding: 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  font-size: 14px;
+  background: #fafafa;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.auth-form button {
+  padding: 12px;
+  background: #0095f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
-.card {
-  padding: 2em;
+.auth-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-.read-the-docs {
-  color: #888;
+.auth-link {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #dbdbdb;
+}
+
+.auth-link a {
+  color: #0095f6;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.error-message {
+  color: #ed4956;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.post-card {
+  background: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.post-header {
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post-header a {
+  font-weight: 600;
+  color: #262626;
+  text-decoration: none;
+}
+
+.post-image {
+  width: 100%;
+  max-height: 600px;
+  object-fit: cover;
+}
+
+.post-actions {
+  padding: 10px 14px;
+  display: flex;
+  gap: 15px;
+}
+
+.post-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  padding: 0;
+}
+
+.post-likes {
+  padding: 0 14px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.post-caption {
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+.post-caption strong {
+  margin-right: 5px;
+}
+
+.post-comments-link {
+  padding: 0 14px 10px;
+  color: #8e8e8e;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.post-time {
+  padding: 0 14px 14px;
+  color: #8e8e8e;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.create-post {
+  background: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.create-post h2 {
+  margin-bottom: 20px;
+}
+
+.create-post form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.create-post input,
+.create-post textarea {
+  padding: 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.create-post textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.create-post button {
+  padding: 12px;
+  background: #0095f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-header {
+  display: flex;
+  gap: 30px;
+  padding: 30px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #dbdbdb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: white;
+}
+
+.profile-info h2 {
+  font-weight: 400;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-info button {
+  padding: 8px 16px;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.profile-info button.following {
+  background: #efefef;
+}
+
+.profile-info button.follow {
+  background: #0095f6;
+  color: white;
+  border: none;
+}
+
+.profile-stats {
+  display: flex;
+  gap: 30px;
+}
+
+.profile-stats span {
+  font-size: 16px;
+}
+
+.profile-stats strong {
+  font-weight: 600;
+}
+
+.profile-posts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+
+.profile-posts img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.comments-section {
+  background: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  margin-top: 10px;
+  padding: 14px;
+}
+
+.comment {
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.comment strong {
+  margin-right: 5px;
+}
+
+.comment-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #dbdbdb;
+}
+
+.comment-form input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+}
+
+.comment-form button {
+  padding: 10px 20px;
+  background: #0095f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.empty-feed {
+  text-align: center;
+  padding: 40px;
+  color: #8e8e8e;
+}
+
+.image-preview {
+  max-width: 100%;
+  max-height: 300px;
+  margin-top: 10px;
+  border-radius: 4px;
 }

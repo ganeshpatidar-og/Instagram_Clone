@@ -1,35 +1,76 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Feed from './pages/Feed';
+import Profile from './pages/Profile';
+import CreatePost from './pages/CreatePost';
+import PostDetail from './pages/PostDetail';
+import Navbar from './components/Navbar';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const savedUser = localStorage.getItem('user');
+    if (token && savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+    setLoading(false);
+  }, []);
+
+  const handleLogin = (userData, token) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(userData));
+    setUser(userData);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+  };
+
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <BrowserRouter>
+      {user && <Navbar user={user} onLogout={handleLogout} />}
+      <div className="container">
+        <Routes>
+          <Route 
+            path="/login" 
+            element={user ? <Navigate to="/" /> : <Login onLogin={handleLogin} />} 
+          />
+          <Route 
+            path="/signup" 
+            element={user ? <Navigate to="/" /> : <Signup onLogin={handleLogin} />} 
+          />
+          <Route 
+            path="/" 
+            element={user ? <Feed user={user} /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/create" 
+            element={user ? <CreatePost user={user} /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/profile/:id" 
+            element={user ? <Profile currentUser={user} /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/post/:id" 
+            element={user ? <PostDetail user={user} /> : <Navigate to="/login" />} 
+          />
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
