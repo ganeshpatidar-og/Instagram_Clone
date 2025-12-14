@@ -1,8 +1,14 @@
 import os
+from dotenv import load_dotenv
 from datetime import timedelta
 from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
+
+# 👇 LOAD .env BEFORE reading os.environ
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
 from models import db
 from routes.auth import auth_bp
 from routes.posts import posts_bp
@@ -11,6 +17,8 @@ from routes.users import users_bp
 app = Flask(__name__)
 
 database_url = os.environ.get('DATABASE_URL')
+print("DATABASE_URL:", database_url)
+
 if not database_url:
     raise RuntimeError("DATABASE_URL environment variable is required")
 
