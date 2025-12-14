@@ -7,6 +7,7 @@ import Profile from './pages/Profile';
 import CreatePost from './pages/CreatePost';
 import PostDetail from './pages/PostDetail';
 import Navbar from './components/Navbar';
+import { auth } from './api';
 import './App.css';
 
 function App() {
@@ -14,12 +15,24 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const savedUser = localStorage.getItem('user');
-    if (token && savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
-    setLoading(false);
+    const validateToken = async () => {
+      const token = localStorage.getItem('token');
+      const savedUser = localStorage.getItem('user');
+      
+      if (token && savedUser) {
+        try {
+          const { data } = await auth.me();
+          setUser(data);
+          localStorage.setItem('user', JSON.stringify(data));
+        } catch (error) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+        }
+      }
+      setLoading(false);
+    };
+    
+    validateToken();
   }, []);
 
   const handleLogin = (userData, token) => {
