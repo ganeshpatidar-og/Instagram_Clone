@@ -46,31 +46,16 @@ function Feed({ user }) {
 
   return (
     <div>
-      <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+      <div className="feed-toggle">
         <button 
-          onClick={toggleFeed}
-          style={{
-            padding: '8px 16px',
-            background: viewAll ? '#0095f6' : '#efefef',
-            color: viewAll ? 'white' : '#262626',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            marginRight: '10px'
-          }}
+          onClick={() => { if (!viewAll) toggleFeed(); }}
+          className={viewAll ? 'active' : ''}
         >
           All Posts
         </button>
         <button 
-          onClick={toggleFeed}
-          style={{
-            padding: '8px 16px',
-            background: !viewAll ? '#0095f6' : '#efefef',
-            color: !viewAll ? 'white' : '#262626',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
+          onClick={() => { if (viewAll) toggleFeed(); }}
+          className={!viewAll ? 'active' : ''}
         >
           Following
         </button>
@@ -91,16 +76,8 @@ function Feed({ user }) {
           ))}
           {hasNext && (
             <button 
+              className="load-more-btn"
               onClick={() => setPage(p => p + 1)}
-              style={{
-                width: '100%',
-                padding: '12px',
-                background: 'white',
-                border: '1px solid #dbdbdb',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                marginBottom: '20px'
-              }}
             >
               Load More
             </button>

@@ -7,7 +7,7 @@ users_bp = Blueprint('users', __name__)
 @users_bp.route('/<int:user_id>', methods=['GET'])
 @jwt_required()
 def get_user(user_id):
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())
     user = User.query.get(user_id)
     
     if not user:
@@ -23,7 +23,7 @@ def get_user(user_id):
 @users_bp.route('/<int:user_id>/posts', methods=['GET'])
 @jwt_required()
 def get_user_posts(user_id):
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())
     user = User.query.get(user_id)
     
     if not user:
@@ -37,7 +37,7 @@ def get_user_posts(user_id):
 @users_bp.route('/<int:user_id>/follow', methods=['POST'])
 @jwt_required()
 def follow_user(user_id):
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())
     
     if current_user_id == user_id:
         return jsonify({'error': 'Cannot follow yourself'}), 400
@@ -56,7 +56,7 @@ def follow_user(user_id):
 @users_bp.route('/<int:user_id>/unfollow', methods=['POST'])
 @jwt_required()
 def unfollow_user(user_id):
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())
     
     current_user = User.query.get(current_user_id)
     user_to_unfollow = User.query.get(user_id)

@@ -7,7 +7,7 @@ posts_bp = Blueprint('posts', __name__)
 @posts_bp.route('', methods=['POST'])
 @jwt_required()
 def create_post():
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     data = request.get_json()
     
     if not data or not data.get('image_url'):
@@ -27,7 +27,7 @@ def create_post():
 @posts_bp.route('/feed', methods=['GET'])
 @jwt_required()
 def get_feed():
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     user = User.query.get(user_id)
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 10, type=int)
@@ -48,7 +48,7 @@ def get_feed():
 @posts_bp.route('/all', methods=['GET'])
 @jwt_required()
 def get_all_posts():
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 10, type=int)
     
@@ -64,7 +64,7 @@ def get_all_posts():
 @posts_bp.route('/<int:post_id>', methods=['GET'])
 @jwt_required()
 def get_post(post_id):
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     post = Post.query.get(post_id)
     
     if not post:
@@ -75,7 +75,7 @@ def get_post(post_id):
 @posts_bp.route('/<int:post_id>/like', methods=['POST'])
 @jwt_required()
 def like_post(post_id):
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     post = Post.query.get(post_id)
     
     if not post:
@@ -95,7 +95,7 @@ def like_post(post_id):
 @posts_bp.route('/<int:post_id>/unlike', methods=['POST'])
 @jwt_required()
 def unlike_post(post_id):
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     post = Post.query.get(post_id)
     
     if not post:
@@ -127,7 +127,7 @@ def get_comments(post_id):
 @posts_bp.route('/<int:post_id>/comments', methods=['POST'])
 @jwt_required()
 def add_comment(post_id):
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     data = request.get_json()
     
     if not data or not data.get('content'):

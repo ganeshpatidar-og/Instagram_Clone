@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
@@ -16,9 +17,19 @@ if not database_url:
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = os.environ.get('SESSION_SECRET', 'dev-secret-key')
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=7)
 
 CORS(app, origins="*")
 jwt = JWTManager(app)
+
+@jwt.user_identity_loader
+def user_identity_lookup(user_id):
+    return str(user_id)
+
+@jwt.user_lookup_loader
+def user_lookup_callback(_jwt_header, jwt_data):
+    identity = jwt_data["sub"]
+    return int(identity)
 
 db.init_app(app)
 

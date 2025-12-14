@@ -6,7 +6,7 @@ A simplified Instagram-style social media application built with Flask (backend)
 
 ```
 ├── backend/           # Flask API server
-│   ├── app.py         # Main Flask application
+│   ├── app.py         # Main Flask application with JWT config
 │   ├── models.py      # SQLAlchemy database models
 │   └── routes/        # API route blueprints
 │       ├── auth.py    # Authentication endpoints
@@ -16,6 +16,7 @@ A simplified Instagram-style social media application built with Flask (backend)
 │   ├── src/
 │   │   ├── api.js     # API client with axios
 │   │   ├── App.jsx    # Main app component with routing
+│   │   ├── App.css    # Modern Instagram-style CSS
 │   │   ├── components/# Reusable components
 │   │   └── pages/     # Page components
 │   └── vite.config.js # Vite configuration
@@ -31,11 +32,11 @@ A simplified Instagram-style social media application built with Flask (backend)
 
 - User registration and login with JWT authentication
 - Create posts with image URLs and captions
-- Like/unlike posts
+- Like/unlike posts with heart emoji
 - Comment on posts
 - Follow/unfollow users
 - Personalized feed (all posts or following only)
-- User profiles with posts grid
+- User profiles with posts grid and follower stats
 
 ## Database Models
 
@@ -72,7 +73,14 @@ A simplified Instagram-style social media application built with Flask (backend)
 ## Running the App
 
 The app runs with two workflows:
-1. Backend: Flask API on port 5001
+1. Backend API: Flask on port 8000
 2. Frontend: React dev server on port 5000 (proxies /api to backend)
 
-The frontend is accessible via the webview.
+## Design
+
+Modern Instagram-inspired design with:
+- Purple/pink gradient background
+- Card-based post layout with shadows
+- Gradient buttons and navigation
+- Responsive profile grid
+- Heart emoji for likes
